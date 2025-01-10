@@ -9,6 +9,8 @@ import {
   Card,
   Text,
   Table,
+  Avatar,
+  Tabs,
 } from "@radix-ui/themes";
 import { Overview } from "./Overview.jsx";
 import {
@@ -21,9 +23,9 @@ import {
 
 export default function App() {
   return (
-    <Card>
+    <Card className="rounded-xl border bg-card text-card-foreground shadow">
       <Flex direction="column" gap="2">
-        <div className="text-black flex justify-between border-b-2 mb-2">
+        <div className="text-black flex justify-between border-b-2 mb-2 h-16 items-center">
           <div className="flex mb-2">
             <div className="">
               <DropdownMenu.Root>
@@ -66,51 +68,55 @@ export default function App() {
               </DropdownMenu.Root>
             </div>
 
-            <ul className="flex gap-2">
-              <li>Overview</li>
-              <li>Products</li>
-              <li>Settings</li>
-              <li>Customers</li>
-            </ul>
+            <Tabs.Root defaultValue="account">
+              <Tabs.List color="black">
+                <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+                <Tabs.Trigger value="products">Products</Tabs.Trigger>
+                <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+                <Tabs.Trigger value="customers">Customers</Tabs.Trigger>
+              </Tabs.List>
+            </Tabs.Root>
           </div>
           <div className="flex">
-            <TextField.Root
-              variant="classic"
-              placeholder="Search the docs…"
-              className="w-60"
-            />
-            <img
-              src="/src/assets/avatar-image.png"
-              alt="Avatar Image"
-              className="w-8 h-8"
-            />
+            <div className="w-24 md:w-[180px] lg:w-[300px]">
+              <TextField.Root variant="classic" placeholder="Search…" />
+            </div>
+
+            <div className="pl-2">
+              <img
+                src="/src/assets/avatar-image.png"
+                alt="Avatar Image"
+                className="w-8 h-8"
+              />
+            </div>
           </div>
         </div>
         <div>
-          <div className="flex justify-between items-center p-6">
+          <div className="flex justify-between items-center">
             <h2 className="flex justify-start font-bold text-3xl">Dashboard</h2>
             <Button color="gray" variant="solid" highContrast>
               Download
             </Button>
           </div>
-          <div className="flex justify-start mt-3">
+          <div className="flex justify-start mt-3 mb-4">
             <SegmentedControl.Root defaultValue="inbox">
-              <SegmentedControl.Item value="inbox">
+              <SegmentedControl.Item value="overview">
                 Overview
               </SegmentedControl.Item>
-              <SegmentedControl.Item value="drafts">
+
+              <SegmentedControl.Item value="analytics">
                 Analytics
               </SegmentedControl.Item>
-              <SegmentedControl.Item value="sent">
+              <SegmentedControl.Item value="reports">
                 Reports
               </SegmentedControl.Item>
-              <SegmentedControl.Item value="sent">
+              <SegmentedControl.Item value="notifications">
                 Notifications
               </SegmentedControl.Item>
             </SegmentedControl.Root>
           </div>
-          <div className="flex justify-around">
-            <Card>
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+            <Card className="rounded-xl border bg-card text-card-foreground shadow">
               <Box>
                 <Text as="div" size="2">
                   Total Revenue
@@ -123,7 +129,7 @@ export default function App() {
                 </Text>
               </Box>
             </Card>
-            <Card>
+            <Card className="rounded-xl border bg-card text-card-foreground shadow">
               <Box>
                 <Text as="div" size="2">
                   Subscriptions
@@ -136,7 +142,7 @@ export default function App() {
                 </Text>
               </Box>
             </Card>
-            <Card>
+            <Card className="rounded-xl border bg-card text-card-foreground shadow">
               <Box>
                 <Text as="div" size="2">
                   Sales
@@ -149,7 +155,7 @@ export default function App() {
                 </Text>
               </Box>
             </Card>
-            <Card>
+            <Card className="rounded-xl border bg-card text-card-foreground shadow">
               <Box>
                 <Text as="div" size="2">
                   Active Now
@@ -164,77 +170,108 @@ export default function App() {
             </Card>
           </div>
 
-          <div className="flex-row md:flex">
-            <Card className="m-6 w-lvw">
+          <div className="grid gap-4 grid-cols-1 lg:grid-cols-7 mt-4">
+            <Card className="col-span-4 rounded-xl border bg-card text-card-foreground shadow">
+              <div className="flex flex-col space-y-.5 p-6">
+                <div>Overview</div>
+              </div>
               <Overview />
             </Card>
-            <Card className="m-6 w-lvw">
+            <Card className="col-span-3 rounded-xl border bg-card text-card-foreground shadow">
               <Table.Root>
-                <Table.ColumnHeaderCell>
-                  Recent Sales
-                  <Text as="div" size="2" color="gray">
-                    You made 265 sales this month.
-                  </Text>
-                </Table.ColumnHeaderCell>
+                <Table.Row>
+                  <div className="p-3">
+                    Recent Sales
+                    <Text
+                      as="div"
+                      size="1"
+                      color="gray"
+                      className="font-medium">
+                      You made 265 sales this month.
+                    </Text>
+                  </div>
+                </Table.Row>
 
-                <Table.Body className="">
-                  <Table.Row>
-                    <Table.RowHeaderCell>
-                      <Text className="flex">Danilo Sousa</Text>
-                      <Text>danilo@example.com</Text>
-                    </Table.RowHeaderCell>
-
-                    <Table.Cell>
-                      <Text className="flex flex-row-reverse font-bold">
-                        +$1,999.00
-                      </Text>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.RowHeaderCell>
-                      <Text className="flex">Jackson Lee </Text>
+                <Table.Row>
+                  <Table.RowHeaderCell className="flex">
+                    <div>
+                      <Avatar src="/src/assets/avatar-image.png" />
+                    </div>
+                    <div className="flex flex-col">
+                      <Text>Olivia Martin</Text>
+                      <Text>olivia.martin@email.com</Text>
+                    </div>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>
+                    <Text className="flex flex-row-reverse font-bold">
+                      +$1,999.00
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.RowHeaderCell className="flex">
+                    <div>
+                      <Avatar src="/src/assets/avatar-image-2.png" />
+                    </div>
+                    <div className="flex flex-col">
+                      <Text>Jackson Lee </Text>
                       <Text>jackson.lee@email.com</Text>
-                    </Table.RowHeaderCell>
-                    <Table.Cell>
-                      <Text className="flex flex-row-reverse font-bold">
-                        +$39.00
-                      </Text>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.RowHeaderCell>
-                      <Text className="flex">Isabella Nguyen </Text>
+                    </div>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>
+                    <Text className="flex flex-row-reverse font-bold">
+                      +$39.00
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.RowHeaderCell className="flex">
+                    <div>
+                      <Avatar src="/src/assets/avatar-image-3.png" />
+                    </div>
+                    <div className="flex flex-col">
+                      <Text>Isabella Nguyen </Text>
                       <Text>isabella.nguyen@email.com</Text>
-                    </Table.RowHeaderCell>
-                    <Table.Cell>
-                      <Text className="flex flex-row-reverse font-bold">
-                        +$299.00
-                      </Text>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.RowHeaderCell>
-                      <Text className="flex">William Kim </Text>
+                    </div>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>
+                    <Text className="flex flex-row-reverse font-bold">
+                      +$299.00
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.RowHeaderCell className="flex">
+                    <div>
+                      <Avatar src="/src/assets/avatar-image-4.png" />
+                    </div>
+                    <div className="flex flex-col">
+                      <Text>William Kim</Text>
                       <Text>will@email.com</Text>
-                    </Table.RowHeaderCell>
-                    <Table.Cell>
-                      <Text className="flex flex-row-reverse font-bold">
-                        +$99.00
-                      </Text>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.RowHeaderCell>
-                      <Text className="flex">Sofia Davis sofia.</Text>
+                    </div>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>
+                    <Text className="flex flex-row-reverse font-bold">
+                      +$99.00
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.RowHeaderCell className="flex">
+                    <div>
+                      <Avatar src="/src/assets/avatar-image-5.png" />
+                    </div>
+                    <div className="flex flex-col">
+                      <Text>Sofia Davis sofia.</Text>
                       <Text>davis@email.com</Text>
-                    </Table.RowHeaderCell>
-                    <Table.Cell >
-                      <Text className="flex flex-row-reverse font-bold">
-                        +$39.00
-                      </Text>
-                    </Table.Cell>
-                  </Table.Row>
-                </Table.Body>
+                    </div>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>
+                    <Text className="flex flex-row-reverse font-bold">
+                      +$39.00
+                    </Text>
+                  </Table.Cell>
+                </Table.Row>
               </Table.Root>
             </Card>
           </div>
